@@ -1,0 +1,29 @@
+.button-singup {
+	width: 40%;
+	margin-top: 16px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.card {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 100px;
+	width: 500px;
+	display: flex;
+	justify-content: center;
+}
+
+.form {
+	margin-top: 50px;
+	margin-left: 50px;
+	margin-right: 50px;
+	margin-bottom: 50px;
+}
+
+.text-sing-up {
+	text-align: center;
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+}
