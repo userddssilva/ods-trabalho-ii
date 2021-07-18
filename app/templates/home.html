@@ -12,10 +12,10 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <!-- Local Style -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <!-- <link rel="stylesheet" href="css/styles.css"> -->
+  <link rel="stylesheet" href="css/star.css">
 
   <style>
     .grid-cards {
@@ -111,19 +111,6 @@
   </style>
 
   <script>
-    var a;
-    function show_hide(card_id) {
-      if (a == 1) {
-        // document.getElementById("card-x").style.display = "inline";
-        document.getElementById(card_id).style.backgroundColor = ""
-        a = 0;
-      } else {
-        document.getElementById(card_id).style.backgroundColor = "#d2d2d2"
-        // document.getElementById("card-x").style.display = "none";
-        a = 1;
-      }
-      return a;
-    }
   </script>
 </head>
 
@@ -136,9 +123,27 @@
     <form action="#" method="post">
       <div class="row row-cols-1 row-cols-md-4 g-4">
         <div class="col">
-          <div class="card h-100" id="card-x" onclick="show_hide('card-x')">
-            <img src="..." class="card-img-top"
+          <div class="card h-100"">
+            <img 
+              class="card-img" 
+              src="https://assets.codepen.io/6093409/mountains-3.jpg"
+              alt="a snow-capped mountain range"
               onerror="this.onerror=null; this.src='https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png'">
+            <div class="card-img-overlay">
+              <div class="estrelas" aria-disabled="true">
+                <!-- <input type="radio" id="cm_star-empty" name="fb" value="" checked /> -->
+                <label for="cm_star-1"><i class="fa"></i></label>
+                <input type="radio" id="cm_star-1" name="fb" value="1" />
+                <label for="cm_star-2"><i class="fa"></i></label>
+                <input type="radio" id="cm_star-2" name="fb" value="2" />
+                <label for="cm_star-3"><i class="fa"></i></label>
+                <input type="radio" id="cm_star-3" name="fb" value="3" />
+                <label for="cm_star-4"><i class="fa"></i></label>
+                <input type="radio" id="cm_star-4" name="fb" value="4"/>
+                <label for="cm_star-5"><i class="fa"></i></label>
+                <input type="radio" id="cm_star-5" name="fb" value="5" />
+              </div>
+            </div>
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
               <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
@@ -154,9 +159,7 @@
               <h5 class="card-title">Card title</h5>
               <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
                 content. This content is a little bit longer.
-                This is a longer card with supporting text below as a natural lead-in to additional content. This
-                content
-                is a little bit longer ...
+                This is a longer card with supporting text below as a natural lead-in to additional content. This ...
               </p>
             </div>
           </div>
@@ -206,6 +209,31 @@
             </div>
           </div>
         </div>
+        <div class="card h-100">
+          <img class="card-img" src="https://assets.codepen.io/6093409/mountains-3.jpg"
+            alt="a snow-capped mountain range"
+            onerror="this.onerror=null; this.src='https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png'">
+          <div class="card-img-overlay">
+            <div class="estrelas" aria-disabled="true">
+              <input type="radio" id="cm_star-empty" name="fb" value="" checked />
+              <label for="cm_star-6"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-6" name="fb" value="6" disabled />
+              <label for="cm_star-7"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-7" name="fb" value="7" disabled />
+              <label for="cm_star-8"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-8" name="fb" value="8" disabled />
+              <label for="cm_star-9"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-9" name="fb" value="9" disabled/>
+              <label for="cm_star-10"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-10" name="fb" value="10" disabled />
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+              content. This content is a little bit longer.</p>
+          </div>
+        </div>
       </div>
     </form>
   </div>
@@ -213,3 +241,30 @@
 </body>
 
 </html>
+
+
+<!-- <div class="card h-100">
+  <img class="card-img" src="https://assets.codepen.io/6093409/mountains-3.jpg"
+    alt="a snow-capped mountain range"
+    onerror="this.onerror=null; this.src='https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png'">
+  <div class="card-img-overlay">
+    <div class="estrelas" aria-disabled="true">
+      <input type="radio" id="cm_star-empty" name="fb" value="" checked />
+      <label for="cm_star-6"><i class="fa"></i></label>
+      <input type="radio" id="cm_star-6" name="fb" value="6" disabled />
+      <label for="cm_star-7"><i class="fa"></i></label>
+      <input type="radio" id="cm_star-7" name="fb" value="7" disabled />
+      <label for="cm_star-8"><i class="fa"></i></label>
+      <input type="radio" id="cm_star-8" name="fb" value="8" disabled />
+      <label for="cm_star-9"><i class="fa"></i></label>
+      <input type="radio" id="cm_star-9" name="fb" value="9" disabled/>
+      <label for="cm_star-10"><i class="fa"></i></label>
+      <input type="radio" id="cm_star-10" name="fb" value="10" disabled />
+    </div>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+      content. This content is a little bit longer.</p>
+  </div>
+</div> -->

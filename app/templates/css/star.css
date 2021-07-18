@@ -1,0 +1,21 @@
+body{text-align: left;}
+
+.estrelas {
+    margin-top: 100px;
+}
+
+.estrelas input[type=radio] {
+  display: none;
+}
+.estrelas label i.fa{
+  font-size: 2.5em
+}
+
+.estrelas label i.fa:before {
+  content:'\f005';
+  color: #ccc;
+}
+
+/* .estrelas input[type=radio]:checked ~ label i.fa:before {
+  color: #CCC;
+} */
