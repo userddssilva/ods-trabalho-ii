@@ -52,49 +52,11 @@
       box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
     }
 
-    /*
-    .card-text {
-      height: 80px;
-    }
-
-    .card::before,
-    .card::after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      transform: scale3d(0, 0, 1);
-      transition: transform .3s ease-out 0s;
-      background: rgba(255, 255, 255, 0.1);
-      content: '';
-      pointer-events: none;
-    }
-
-    .card::before {
-      transform-origin: left top;
-    }
-
-    .card::after {
-      transform-origin: right bottom;
-    }
-
-    .card:hover::before,
-    .card:hover::after,
-    .card:focus::before,
-    .card:focus::after {
-      transform: scale3d(1, 1, 1);
-    } */
-
     /* star */
     .fa-star {
       color: rgb(119, 114, 114)
     }
 
-    /* margin star group */
-    .star-group {
-      /* margin-top: 220px; */
-    }
   </style>
 
   <script type="text/javascript">
@@ -114,32 +76,15 @@
 
 </head>
 
-<body>
+<body style="background-color: rgb(69, 69, 71);">
   <div class="navibar">
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-primary">
       <div class="container-fluid" style="margin-right: 190px; margin-left: 200px;">
         <a class="navbar-brand" href="#">Home</a>
 
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-          </ul>
-          <span class="navbar-text">
-            Navbar text with an inline element
-          </span>
-        </div>
-
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <button class="btn btn-success" type="submit">Search</button>
         </form>
       </div>
     </nav>
