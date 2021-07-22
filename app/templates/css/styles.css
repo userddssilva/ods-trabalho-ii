@@ -27,3 +27,16 @@
 	font-size: 20px;
 	font-weight: bold;
 }
+
+.title-page-sing-up {
+	color: white;
+	text-align: center;
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	font-size: 40px;
+	font-weight: bold;
+	margin-top: 20px;
+}
+
+body {
+	background-color: rgb(69, 69, 71);
+}
