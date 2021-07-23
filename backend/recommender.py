@@ -1,7 +1,8 @@
 import json
 
-f = open('animes_json.json')
+f = open('backend/animes.json')
 animes_json = json.load(f)
+
 
 def manhattan(rating1, rating2):
     distance = 0
@@ -20,17 +21,5 @@ def computeNearestNeighbor(input_anime):
             distance = manhattan(animes_json[anime], animes_json[input_anime])
             distances.append((distance, anime))
     distances.sort()
-    return distances[:10]
-
-def recommend(input_anime, animes):
-    nearest = computeNearestNeighbor(input_anime, animes)[0][1]
-
-    recommendations = []
-    neighborRatings = animes[nearest]
-    animeRatings = animes[input_anime]
-    for artist in neighborRatings:
-        if not artist in animeRatings:
-            recommendations.append((artist, neighborRatings[artist]))
-    return sorted(recommendations, key=lambda artistTuple: artitTuple[1], reverse = True)
-
-print(computeNearestNeighbor("Kimi no Na wa."))
+    map_anime = list(map(lambda x: {"anime": x[1], "distance": x[0]}, distances))
+    return json.dumps(map_anime[:10])
