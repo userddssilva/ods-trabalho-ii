@@ -1,7 +1,11 @@
 import json
+import platform
 
-f = open('C:\\Users\\Douglas\\Desktop\\ods-trabalho-ii\\app\\backend\\animes.json')
-animes_json = json.load(f)
+if platform.system() == 'Linux':
+    FILE_PATH = open('/home/indtusuario/github/ods-trabalho-ii/app/backend/animes.json')
+else:
+    FILE_PATH = open('C:\\Users\\Douglas\\Desktop\\ods-trabalho-ii\\app\\backend\\animes.json')
+animes_json = json.load(FILE_PATH)
 
 
 def manhattan(rating1, rating2):

@@ -1,7 +1,6 @@
-from flask import Flask, render_template
-from app.backend.connection import Connection
-import app.backend.recommender as recommender
-from flask import request
+from flask import Flask, render_template, request
+from backend.connection import Connection
+import backend.recommender as recommender
 
 app = Flask(__name__)
 
@@ -44,7 +43,3 @@ def rate_anime(iduser, anime, rate):
 @app.route("/recommend/<anime>", strict_slashes=False)
 def recommend(anime):
     return recommender.computeNearestNeighbor(anime)
-
-
-def init_connection():
-    app.run()

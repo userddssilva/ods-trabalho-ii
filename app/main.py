@@ -1,5 +1,4 @@
-from backend.connection import Connection
-import app.instace_server as server
+from main import app
 
-m_connection = Connection()
-server.init_connection()
+if __name__ == "__main__":
+	app.run()
