@@ -1,6 +1,7 @@
 import sqlite3
 import uuid
 import json
+import os
 
 
 class Connection:

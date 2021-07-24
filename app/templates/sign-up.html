@@ -12,8 +12,9 @@
 
   <!-- Local Style -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/general.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+
 
   <title>Sing up</title>
 </head>
@@ -49,7 +50,7 @@
         </div>
         <!-- Login button -->
         <div class="button-singup">
-          <a href="login.html"><button class="btn btn-light btn-block" type="button">Login</button></a>
+          <a href="/"><button class="btn btn-light btn-block" type="button">Login</button></a>
         </div>
       </form>
     </div>
