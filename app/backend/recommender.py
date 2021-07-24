@@ -1,6 +1,6 @@
 import json
 
-f = open('backend/animes.json')
+f = open('C:\\Users\\Douglas\\Desktop\\ods-trabalho-ii\\app\\backend\\animes.json')
 animes_json = json.load(f)
 
 
