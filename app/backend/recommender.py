@@ -12,7 +12,7 @@ def manhattan(rating1, rating2):
     distance = 0
     total = 0
     for key in rating1:
-        if key in rating2:
+        if key in rating2 and key != "name":
             distance += abs(rating1[key] - rating2[key])
             total += 1
     return distance

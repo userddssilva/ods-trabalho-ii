@@ -93,11 +93,11 @@ class Connection:
         return result.fetchall()
 
     def get_animes_user(self, id_user):
-        res = self.connection.execute("SELECT anime_id, rate FROM View_Anime WHERE user_id = ?", (id_user,)
-                                      ).fetchall()
-        if res is None:
-            return [("", "")]
-
+        SQL = '''SELECT anime_id, rate 
+                FROM   View_Anime 
+                WHERE  user_id = ?
+                ORDER BY rate DESC'''
+        res = self.connection.execute(SQL, (id_user,)).fetchall()
         return res
 
     def get_user(self, login, password):
@@ -109,6 +109,15 @@ class Connection:
         else:
             return {"id": result[0][0]}
     
+    def get_anime(self, anime_id):
+        SQL = "SELECT * FROM Anime WHERE id = ?;"
+        result = self.connection.execute(SQL, (anime_id,)).fetchall()
+        print(f"##=Results={result}")
+        # if result is not None:
+        #     dict_result = {}
+        #     for prop in result:
+                
+    
     def get_animes(self, animes_id):
         SQL = "SELECT * FROM Anime WHERE id IN ({seq})".format(seq=','.join(['?']*len(animes_id)))
         result = self.connection.execute(SQL, animes_id)
@@ -117,6 +126,20 @@ class Connection:
     def get_all_animes(self):
         result = self.connection.execute("SELECT * FROM Anime")
         return result.fetchall()
+    
+    def get_all_animes_json(self):
+        key_list = ["name", "Drama","Romance","School","Supernatural","Action","Adventure",
+         "Fantasy","Magic","Military","Shounen","Comedy","Historical","Parody","Samurai",
+         "Sci-Fi","Thriller","Sports","Super Power","Space","Slice of Life","Mecha","Music",
+         "Mystery", "Seinen", "Martial Arts", "Vampire", "Shoujo", "Horror", "Police",
+         "Psychological","Demons","Ecchi","Josei","Shounen Ai","Game","Dementia",
+         "Harem","Cars","Kids","Shoujo Ai","genre","Hentai","Yaoi","Yuri"]
+        result = self.connection.execute("SELECT * FROM Anime LIMIT 100")
+        data = result.fetchall()
+        data_json = {}
+        for data_anime in data:
+            data_json[data_anime[0]] = dict(zip(key_list, data_anime[1:]))
+        return json.dumps(data_json)
 
     def get_n_animes(self, n=10):
         result = self.connection.execute(f"SELECT * FROM Anime ORDER BY RANDOM() LIMIT {n}")
@@ -135,7 +158,8 @@ class Connection:
                     v.insert(0, key)
                     v.insert(0, m_id)
                     print(f"##=Values={tuple(v)}")
-                    self.connection.execute('''INSERT INTO Anime VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);''', v)
+                    SQL = "INSERT INTO Anime VALUES {seq})".format(seq=','.join(['?']*len(value)))
+                    self.connection.execute(SQL, v)
                 self.connection.commit()
 
     def rate_anime(self, anime_id, id_user, rate):

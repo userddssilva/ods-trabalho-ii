@@ -39,6 +39,7 @@ def first_login(user_id=None):
         user_id=user_id
     )
 
+
 @app.route("/sign_up")
 def sign_up():
     print(connection.get_all_animes())
@@ -66,8 +67,10 @@ def hub(user_id=None):
 @app.route("/home/<user_id>")
 def home(user_id):
     # return str(connection.get_animes_user(id_user=user_id))
-    return str(connection.get_animes(['a612c40a-497c-40b9-99a1-e26447fd7baa', 'c11b7e25-7907-495f-a56a-e0dd3915a4ba', '5505a9f0-7e7f-482d-83fb-37bd057bd273', '0227de08-c4ba-49bc-9b6b-baedbeeb740f']))
+    # return str(connection.get_animes(['a612c40a-497c-40b9-99a1-e26447fd7baa', 'c11b7e25-7907-495f-a56a-e0dd3915a4ba', '5505a9f0-7e7f-482d-83fb-37bd057bd273', '0227de08-c4ba-49bc-9b6b-baedbeeb740f']))
     # return render_template("home.html")
+    # return str(connection.get_anime('a612c40a-497c-40b9-99a1-e26447fd7baa'))
+    return str(connection.get_all_animes_json())
 
 
 @app.route("/rate_anime/<iduser>/<anime>/<rate>", strict_slashes=False)
