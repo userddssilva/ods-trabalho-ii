@@ -109,12 +109,17 @@ class Connection:
         else:
             return {"id": result[0][0]}
     
+    def get_animes(self, animes_id):
+        SQL = "SELECT * FROM Anime WHERE id IN ({seq})".format(seq=','.join(['?']*len(animes_id)))
+        result = self.connection.execute(SQL, animes_id)
+        return result.fetchall()
+    
     def get_all_animes(self):
         result = self.connection.execute("SELECT * FROM Anime")
         return result.fetchall()
 
     def get_n_animes(self, n=10):
-        result = self.connection.execute(f"SELECT * FROM Anime LIMIT {n}")
+        result = self.connection.execute(f"SELECT * FROM Anime ORDER BY RANDOM() LIMIT {n}")
         return result.fetchall()
     
     def populate_animes(self):
@@ -133,16 +138,16 @@ class Connection:
                     self.connection.execute('''INSERT INTO Anime VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);''', v)
                 self.connection.commit()
 
-    def rate_anime(self, anime, id_user, rate):
+    def rate_anime(self, anime_id, id_user, rate):
         m_id = str(uuid.uuid4())
-        res = self.connection.execute("SELECT * FROM View_Anime WHERE user_id = ? AND anime_id = ?", (id_user, anime))
+        res = self.connection.execute("SELECT * FROM View_Anime WHERE user_id = ? AND anime_id = ?", (id_user, anime_id))
         if len(res.fetchall()) == 0:
             print("Criando Avaliacao")
-            self.connection.execute("INSERT INTO View_Anime VALUES (?, ?, ?, ?);", (m_id, anime, id_user, rate))
+            self.connection.execute("INSERT INTO View_Anime VALUES (?, ?, ?, ?);", (m_id, anime_id, id_user, rate))
         else:
             self.connection.execute("UPDATE View_Anime SET rate = ? "
-                                    "WHERE user_id = ? AND anime = ?;",
-                                    (rate, id_user, anime)
+                                    "WHERE user_id = ? AND anime_id = ?;",
+                                    (rate, id_user, anime_id)
                                     )
             print("Atualizando Avaliacao")
         self.connection.commit()
