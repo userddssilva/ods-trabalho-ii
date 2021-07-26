@@ -69,6 +69,7 @@
     .card:hover {
       transform: scale(1.05);
       box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+
     }
 
   </style>
@@ -81,7 +82,8 @@
         document.getElementById(card_id).style.backgroundColor = ""
         a = 0;
       } else {
-        document.getElementById(card_id).style.backgroundColor = "#0d6efd"
+        // document.getElementById(card_id).style.backgroundColor = "#0d6efd" 
+        document.getElementById(card_id).style.backgroundColor = "#20c997"
         // document.getElementById("card-x").style.display = "none";
         a = 1;
       }
@@ -99,22 +101,31 @@
     <form action="#" method="post">
       <div class="row row-cols-1 row-cols-md-4 g-4">
         <div class="col">
+          {%for i in range(0, len)%}
+          
+              <li>{{Pokemons[i]}}</li>
+          {%endfor%}
           <div class="card h-100" id="card-0" onclick="show_hide('card-0')">
             <img src="..." class="card-img-top"
               onerror="this.onerror=null; this.src='https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png'">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
               <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+                TTThis is a longer card with supporting text below as a natural lead-in to additional
+                his is a longer card with supporting text below as a natural lead-in to additional
+                his is a longer card with supporting text below as a natural lead-in to additional
+                This is a longer card with supporting text below as a natural lead-in to additional
                 content. This content is a little bit longer.</p>
             </div>
           </div>
         </div>
-        <div class="col">
+        <!-- <div class="col">
           <div class="card h-100" id="card-1" onclick="show_hide('card-1')">
             <img src="..." class="card-img-top"
               onerror="this.onerror=null; this.src='https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png'">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
+
               <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
                 content. This content is a little bit longer.
               </p>
@@ -165,7 +176,7 @@
                 content. This content is a little bit longer.</p>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </form>
   </div>
