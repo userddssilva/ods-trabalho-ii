@@ -1,3 +1,4 @@
+import itertools
 import json
 import platform
 from .connection import Connection
@@ -21,14 +22,28 @@ def manhattan(rating1, rating2):
     return distance
 
 
-def computeNearestNeighbor(input_anime_id):
+def computeNearestNeighbor(rated_animes):
+    neighbors = []
     animes_json = connection.get_all_animes_json()
     animes_json = json.loads(animes_json)
-    input_anime = animes_json[input_anime_id]
-    distances = []
-    for anime_id, anime in animes_json.items():
-        if anime != input_anime:
-            distance = manhattan(anime, input_anime)
-            distances.append((distance, anime_id))
-    distances.sort()
-    return distances[:20]
+
+    max_interations = 5
+    while len(neighbors) <= 100 and max_interations >= 0:
+        for rated_anime in rated_animes:
+            input_anime = animes_json[rated_anime]
+            distances = []
+            for anime_id, anime in animes_json.items():
+                if anime_id not in rated_animes:
+                    if anime != input_anime:
+                        distance = manhattan(anime, input_anime)
+                        neighbor = (distance, anime_id)
+                        distances.append(neighbor)
+            for d in distances[:40]:
+                if d[1] not in neighbors:
+                    neighbors.append(d[1])
+            print(f"##=Computing neighbors = {len(neighbors)}")
+            print(f"##=Iterations = {max_interations}")
+            if  len(neighbors) >= 100 and max_interations >=0:
+                break
+        max_interations -= 1
+    return neighbors

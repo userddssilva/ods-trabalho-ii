@@ -75,15 +75,9 @@ def home(user_id):
     animes_rated = connection.get_animes_user(id_user=user_id)
     animes_rated_id = [x for x,_ in animes_rated]
     recommend_animes = []
-    for anime_id in animes_rated_id:
-        neighbors = computeNearestNeighbor(anime_id)
-        recommend_animes.append(neighbors)
-    
-    # Recommend animes
-    recommend_animes = list(itertools.chain(*recommend_animes))
-    recommend_animes.sort()
-    recommend_animes = [anime_id for _, anime_id in recommend_animes]
-    recommends = connection.get_animes(recommend_animes)
+
+    neighbors = computeNearestNeighbor(animes_rated_id)
+    recommends = connection.get_animes(neighbors)
 
     # Avegare rate animes
     averages_rate_animes = []
@@ -123,6 +117,7 @@ def avalia(user_id, anime_id):
         user=user_id,
         rate=rate
     )
+
 
 @app.route("/rate_anime/<iduser>/<anime>/<rate>", strict_slashes=False)
 def rate_anime(iduser, anime, rate):

@@ -113,7 +113,7 @@ class Connection:
     def average_rate_anime(self, anime_id):
         SQL = "SELECT ROUND(AVG(rate), 2) FROM View_Anime WHERE anime_id = ?"
         result = self.connection.execute(SQL, (anime_id,)).fetchone()[0]
-        result = 0 if result is None else result[0]
+        result = 0 if result is None else result
         return result
 
     def get_anime(self, anime_id):

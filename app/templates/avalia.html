@@ -51,7 +51,7 @@
             let a = document.getElementsByName("fb")
             for (let i = 0; i < a.length; i++) {
                 if (a[i].checked) {
-                    URL = `/rate_animes/${'{{user}}'}/${'{{anime[0]}}'}/${i}`
+                    URL = `/rate_anime/${'{{user}}'}/${'{{anime[0]}}'}/${i}`
                     document.getElementById("button-link").href =  URL
                     console.log(URL)
                 }
