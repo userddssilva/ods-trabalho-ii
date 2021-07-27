@@ -21,7 +21,7 @@ def index():
 
 
 @app.route("/login", methods=["POST"])
-def login():
+def login_route():
     login = request.form["email"]
     password = request.form["password"]
     user = connection.get_user(login, password)
@@ -48,7 +48,6 @@ def first_login(user_id=None):
 
 @app.route("/sign_up")
 def sign_up():
-    print(connection.get_all_animes())
     return render_template("sign-up.html")
 
 
@@ -94,33 +93,35 @@ def home(user_id):
 
     return render_template(
         "home.html", 
+        user_id=user_id,
         enumerate=enumerate,
         recommends=recommends,
         averages=averages_rate_animes
     )
 
 
-@app.route("/details/<anime_id>",  methods=['GET'])
-def details(anime_id):
+@app.route("/details/<user_id>/<anime_id>",  methods=['GET'])
+def details(user_id, anime_id):
     anime = connection.get_anime(anime_id)
     average_rate = connection.average_rate_anime(anime_id)
 
     return render_template(
         "detalhe.html",
+        user_id=user_id,
         anime=anime,
         average_rate=average_rate
     )
 
 
-@app.route("/avalia/<anime_id>", methods=["GET"])
-def avalia(anime_id):
+@app.route("/avalia/<user_id>/<anime_id>", methods=["GET"])
+def avalia(user_id, anime_id):
     anime = connection.get_anime(anime_id)
-    user = connection.get_user(login, password)
-    print(user)
+    rate = 0
     return render_template(
         "avalia.html",
         anime=anime,
-        user=user
+        user=user_id,
+        rate=rate
     )
 
 @app.route("/rate_anime/<iduser>/<anime>/<rate>", strict_slashes=False)

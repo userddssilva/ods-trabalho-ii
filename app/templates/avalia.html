@@ -46,16 +46,14 @@
         }
     </style>
 
-    <script type="text/javascript">
-        function change_star_color(id, rate) {
-            // Get all star groups
-            stars_group = document.getElementsByClassName("star-group")[id]
-            // Get all stars
-            stars = stars_group.getElementsByClassName("fa-star")
-            // Change color of stars
-            for (let i = 0; i < stars.length; i++) {
-                if (i < rate) {
-                    stars[i].style.color = "#FC0";
+    <script>
+        function getStarValue() {
+            let a = document.getElementsByName("fb")
+            for (let i = 0; i < a.length; i++) {
+                if (a[i].checked) {
+                    URL = `/rate_animes/${'{{user}}'}/${'{{anime[0]}}'}/${i}`
+                    document.getElementById("button-link").href =  URL
+                    console.log(URL)
                 }
             }
         }
@@ -82,7 +80,7 @@
 
             <div class="col">
                 <div class="row">
-                    <h5 class="card-title">anime</h5>
+                    <h5 class="card-title">{{anime[1]}}</h5>
                 </div>
                 <div class="row">
                     <img class=" card-img"
@@ -92,7 +90,7 @@
                         onerror="this.onerror=null; this.src='https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png'">
                 </div>
                 <div class="row">
-                    <div class="estrelas">
+                    <div class="estrelas" onclick="getStarValue()">
                         <input type="radio" id="cm_star-empty" name="fb" value="" checked />
                         <label for="cm_star-6"><i class="fa"></i></label>
                         <input type="radio" id="cm_star-6" name="fb" value="6" />
@@ -107,7 +105,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <button type="button" class="btn btn-primary">Avaliar</button>
+                    <a type="button" class="btn btn-primary" id="button-link" href="">Avaliar</a>
                 </div>
             </div>
         </div>
