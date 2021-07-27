@@ -1,13 +1,19 @@
+from abc import abstractproperty
+import enum
+import itertools
 import re
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from flask import redirect, url_for, request
+from flask.ctx import after_this_request
 from .backend.connection import Connection
-from .backend import recommender
+from .backend.recommender import computeNearestNeighbor
 
 app = Flask(__name__)
 
 connection = Connection()
 connection.populate_animes()
+login = ''
+password = ''
 
 @app.route("/")
 def index():
@@ -66,12 +72,56 @@ def hub(user_id=None):
 
 @app.route("/home/<user_id>")
 def home(user_id):
-    # return str(connection.get_animes_user(id_user=user_id))
-    # return str(connection.get_animes(['a612c40a-497c-40b9-99a1-e26447fd7baa', 'c11b7e25-7907-495f-a56a-e0dd3915a4ba', '5505a9f0-7e7f-482d-83fb-37bd057bd273', '0227de08-c4ba-49bc-9b6b-baedbeeb740f']))
-    # return render_template("home.html")
-    # return str(connection.get_anime('a612c40a-497c-40b9-99a1-e26447fd7baa'))
-    return str(connection.get_all_animes_json())
+    # Rated animes 
+    animes_rated = connection.get_animes_user(id_user=user_id)
+    animes_rated_id = [x for x,_ in animes_rated]
+    recommend_animes = []
+    for anime_id in animes_rated_id:
+        neighbors = computeNearestNeighbor(anime_id)
+        recommend_animes.append(neighbors)
+    
+    # Recommend animes
+    recommend_animes = list(itertools.chain(*recommend_animes))
+    recommend_animes.sort()
+    recommend_animes = [anime_id for _, anime_id in recommend_animes]
+    recommends = connection.get_animes(recommend_animes)
 
+    # Avegare rate animes
+    averages_rate_animes = []
+    for anime in recommend_animes:
+        avg = connection.average_rate_anime(anime)
+        averages_rate_animes.append(avg)
+
+    return render_template(
+        "home.html", 
+        enumerate=enumerate,
+        recommends=recommends,
+        averages=averages_rate_animes
+    )
+
+
+@app.route("/details/<anime_id>",  methods=['GET'])
+def details(anime_id):
+    anime = connection.get_anime(anime_id)
+    average_rate = connection.average_rate_anime(anime_id)
+
+    return render_template(
+        "detalhe.html",
+        anime=anime,
+        average_rate=average_rate
+    )
+
+
+@app.route("/avalia/<anime_id>", methods=["GET"])
+def avalia(anime_id):
+    anime = connection.get_anime(anime_id)
+    user = connection.get_user(login, password)
+    print(user)
+    return render_template(
+        "avalia.html",
+        anime=anime,
+        user=user
+    )
 
 @app.route("/rate_anime/<iduser>/<anime>/<rate>", strict_slashes=False)
 def rate_anime(iduser, anime, rate):
@@ -84,4 +134,4 @@ def rate_anime(iduser, anime, rate):
 
 @app.route("/recommend/<anime>", strict_slashes=False)
 def recommend(anime):
-    return recommender.computeNearestNeighbor(anime)
+    return computeNearestNeighbor(anime)

@@ -1,3 +1,4 @@
+import re
 import sqlite3
 import uuid
 import json
@@ -108,16 +109,19 @@ class Connection:
             return None
         else:
             return {"id": result[0][0]}
-    
+
+    def average_rate_anime(self, anime_id):
+        SQL = "SELECT ROUND(AVG(rate), 2) FROM View_Anime WHERE anime_id = ?"
+        result = self.connection.execute(SQL, (anime_id,)).fetchone()[0]
+        result = 0 if result is None else result[0]
+        return result
+
     def get_anime(self, anime_id):
         SQL = "SELECT * FROM Anime WHERE id = ?;"
-        result = self.connection.execute(SQL, (anime_id,)).fetchall()
+        result = self.connection.execute(SQL, (anime_id,)).fetchone()
         print(f"##=Results={result}")
-        # if result is not None:
-        #     dict_result = {}
-        #     for prop in result:
-                
-    
+        return result
+
     def get_animes(self, animes_id):
         SQL = "SELECT * FROM Anime WHERE id IN ({seq})".format(seq=','.join(['?']*len(animes_id)))
         result = self.connection.execute(SQL, animes_id)
@@ -134,7 +138,7 @@ class Connection:
          "Mystery", "Seinen", "Martial Arts", "Vampire", "Shoujo", "Horror", "Police",
          "Psychological","Demons","Ecchi","Josei","Shounen Ai","Game","Dementia",
          "Harem","Cars","Kids","Shoujo Ai","genre","Hentai","Yaoi","Yuri"]
-        result = self.connection.execute("SELECT * FROM Anime LIMIT 100")
+        result = self.connection.execute("SELECT * FROM Anime")
         data = result.fetchall()
         data_json = {}
         for data_anime in data:

@@ -1,5 +1,8 @@
 import json
 import platform
+from .connection import Connection
+
+connection = Connection()
 
 if platform.system() == 'Linux':
     FILE_PATH = open('/home/indtusuario/github/ods-trabalho-ii/app/backend/animes.json')
@@ -18,12 +21,14 @@ def manhattan(rating1, rating2):
     return distance
 
 
-def computeNearestNeighbor(input_anime):
+def computeNearestNeighbor(input_anime_id):
+    animes_json = connection.get_all_animes_json()
+    animes_json = json.loads(animes_json)
+    input_anime = animes_json[input_anime_id]
     distances = []
-    for anime in animes_json:
+    for anime_id, anime in animes_json.items():
         if anime != input_anime:
-            distance = manhattan(animes_json[anime], animes_json[input_anime])
-            distances.append((distance, anime))
+            distance = manhattan(anime, input_anime)
+            distances.append((distance, anime_id))
     distances.sort()
-    map_anime = list(map(lambda x: {"anime": x[1], "distance": x[0]}, distances))
-    return json.dumps(map_anime[:10])
+    return distances[:20]

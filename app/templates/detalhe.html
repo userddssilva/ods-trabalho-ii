@@ -30,17 +30,7 @@
     .card-text {
       color: white;
     }
-/*
-    .button-valuetion {
-      margin-left: 700px;
-    }
-
-    .container-image {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    } */
+     
   </style>
 
   <script type="text/javascript">
@@ -90,13 +80,14 @@
             <i class="fa fa-star fa-4x" id="2"></i>
             <i class="fa fa-star fa-4x" id="3"></i>
             <i class="fa fa-star fa-4x" id="4"></i>
-            <script>change_star_color(0, 3);</script>
+            <script>change_star_color(0, '{{average_rate}}');</script>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="row">
-          <h5 class="card-title">Card title</h5>
+          <h5 class="card-title">{{anime[1]}}</h5>
+          <h5 class="card-title"></h5>
         </div>
         <div class="row">
           <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
@@ -133,7 +124,7 @@
           </p>
         </div>
         <div class="row">
-          <button type="button" class="button-valuetion btn btn-primary" style="margin-top: 100px; height: 50px;">Avaliar</button>
+          <a type="button" class="button-valuetion btn btn-primary" style="margin-top: 100px; height: 50px;"  href="/avalia/{{anime[0]}}">Avaliar</a>
         </div>
       </div>
     </div>
