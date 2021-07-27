@@ -64,7 +64,7 @@ def hub(user_id=None):
         animes = request.form['animes']
         for anime_id in animes.split(','):
             connection.rate_anime(anime_id, user_id, 3)
-        return user_id
+        return redirect(url_for('home', user_id=user_id))
     else:
         return redirect(url_for('home', user_id=user_id))
 
@@ -78,6 +78,9 @@ def home(user_id):
 
     neighbors = computeNearestNeighbor(animes_rated_id)
     recommends = connection.get_animes(neighbors)
+
+    for n_id in neighbors:
+        connection.insert_recommendations(user_id, n_id)
 
     # Avegare rate animes
     averages_rate_animes = []
@@ -123,7 +126,7 @@ def avalia(user_id, anime_id):
 def rate_anime(iduser, anime, rate):
     try:
         connection.rate_anime(anime, iduser, rate)
-        return "Anime avaliado com sucesso"
+        return redirect(url_for('home', user_id=iduser))
     except:
         return "Ocorreu um erro durante a avalição tente novamente"
 

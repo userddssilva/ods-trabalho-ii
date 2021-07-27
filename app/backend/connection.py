@@ -79,6 +79,17 @@ class Connection:
             FOREIGN KEY(user_id) REFERENCES User(id),
             FOREIGN KEY(anime_id) REFERENCES Anime(id)
             )''')
+        
+
+        self.connection.execute(
+            '''CREATE TABLE IF NOT EXISTS Recommend_Anime
+            (
+            id text PRIMARY KEY, 
+            anime_id text,
+            user_id text,
+            FOREIGN KEY(user_id) REFERENCES User(id),
+            FOREIGN KEY(anime_id) REFERENCES Anime(id)
+            )''')
 
     def getConnection(self):
         return self.connection
@@ -162,7 +173,7 @@ class Connection:
                     v.insert(0, key)
                     v.insert(0, m_id)
                     print(f"##=Values={tuple(v)}")
-                    SQL = "INSERT INTO Anime VALUES {seq})".format(seq=','.join(['?']*len(value)))
+                    SQL = "INSERT INTO Anime VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
                     self.connection.execute(SQL, v)
                 self.connection.commit()
 
@@ -179,6 +190,17 @@ class Connection:
                                     )
             print("Atualizando Avaliacao")
         self.connection.commit()
+
+    def insert_recommendations(self, user_id, anime_id):
+        m_id = str(uuid.uuid4())
+        result = self.connection.execute("SELECT * FROM Recommend_Anime WHERE user_id = ? AND anime_id = ?", (user_id, anime_id)).fetchall()
+        if len (result) == 0:    
+            self.connection.execute("INSERT INTO Recommend_Anime VALUES(?, ?, ?)", (m_id, anime_id, user_id))
+            self.connection.commit()
+    
+    def get_recommendations(self, user_id):
+        result = self.connection.execute("SELECT * FROM Recommend_Anime WHERE user_id = ?", (user_id,)).fetchall()
+        return result
 
     def get_json(self):
         res = self.connection.execute(
